@@ -2,34 +2,14 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import Grid from "@mui/material/Grid"
-import Card from "@mui/material/Card"
-import CardContent from "@mui/material/CardContent"
-import CardMedia from "@mui/material/CardMedia"
+import Accordion from "@mui/material/Accordion"
+import AccordionSummary from "@mui/material/AccordionSummary"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import AddIcon from "@mui/icons-material/Add"
+import RemoveIcon from "@mui/icons-material/Remove"
 import Divider from "@mui/material/Divider"
-import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
-import ListItemText from "@mui/material/ListItemText"
 
 export default function About() {
-  // Sample team members
-  const teamMembers = [
-    { id: 1, name: "John Smith", title: "Lead Developer", image: "/placeholder.svg?height=150&width=150" },
-    { id: 2, name: "Jane Doe", title: "Traffic Engineer", image: "/placeholder.svg?height=150&width=150" },
-    { id: 3, name: "Mike Johnson", title: "Data Scientist", image: "/placeholder.svg?height=150&width=150" },
-  ]
-
-  // Sample version history
-  const versionHistory = [
-    { version: "3.2.1", date: "2025-03-15", notes: "Added new filter options and improved map performance" },
-    {
-      version: "3.1.0",
-      date: "2025-02-01",
-      notes: "Integrated real-time traffic data and enhanced reporting capabilities",
-    },
-    { version: "3.0.5", date: "2025-01-10", notes: "Bug fixes and UI improvements" },
-    { version: "3.0.0", date: "2024-12-01", notes: "Major release with new dashboard design and advanced analytics" },
-  ]
-
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h4" gutterBottom>
@@ -37,81 +17,237 @@ export default function About() {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h5" gutterBottom>
-              Our Mission
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Paper sx={{ p: 0, height: "100%" }}>
+            <Typography variant="h6" sx={{ p: 2, fontWeight: "bold" }}>
+              Performance
             </Typography>
-            <Typography variant="body1" paragraph>
-              SigOps Metrics is designed to provide traffic engineers and transportation professionals with
-              comprehensive, real-time insights into traffic signal operations. Our platform helps agencies optimize
-              traffic flow, reduce congestion, and improve overall mobility in urban environments.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              By combining advanced data analytics with intuitive visualization tools, SigOps Metrics transforms complex
-              traffic data into actionable intelligence, enabling better decision-making and more efficient resource
-              allocation.
-            </Typography>
+            <Divider />
+
+            <AccordionItem
+              title="Throughput"
+              content={
+                <>
+                  <Typography paragraph>
+                    Throughput is a measure of efficiency. It is meant to represent the maximum number of vehicles
+                    served on all phases at an intersection.
+                  </Typography>
+                  <Typography paragraph>
+                    The number shown for the average is an average of all the individual signals based on the current
+                    filter. The charts display an average of every signal in the respective corridor.
+                  </Typography>
+                  <Typography paragraph>
+                    It is calculated as the highest 15-minute volume in a day at an intersection, converted to an hourly
+                    volume. Volumes come from high-resolution event logs from the controller, which are stored in the
+                    ATSPM database. All detectors used for volume counts are used in the throughput calculation for an
+                    intersection. It includes Tuesdays, Wednesdays and Thursdays only.
+                  </Typography>
+                  <Typography paragraph>
+                    Detectors used for volume counts are selected based on a hierarchy, as there may be more than one
+                    detector in a given lane. For each lane, the detector with the highest count priority is selected
+                    for the count-based metrics. The priority scale is as follows:
+                  </Typography>
+                  <ul>
+                    <li>
+                      <Typography>Exit</Typography>
+                    </li>
+                    <li>
+                      <Typography>Advanced Count</Typography>
+                    </li>
+                    <li>
+                      <Typography>Lane-by-lane Count</Typography>
+                    </li>
+                  </ul>
+                </>
+              }
+            />
+
+            <AccordionItem
+              title="Arrivals on Green"
+              content={
+                <Typography paragraph>
+                  Arrivals on Green represents the percentage of vehicles that arrive at a signalized intersection
+                  during the green phase. Higher values indicate better progression and coordination between signals.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Progression Ratio"
+              content={
+                <Typography paragraph>
+                  Progression Ratio is a measure of the quality of traffic signal timing progression. A ratio greater
+                  than 1.0 indicates good progression with vehicles moving efficiently through successive green lights.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Queue Spillback Rate"
+              content={
+                <Typography paragraph>
+                  Queue Spillback Rate measures the percentage of cycles where traffic queues extend beyond the
+                  available storage capacity, potentially blocking upstream intersections or driveways.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Split Failures"
+              content={
+                <Typography paragraph>
+                  Split Failures occur when a signal phase terminates with a queue of vehicles still waiting. This
+                  metric indicates the percentage of cycles that fail to clear all waiting vehicles during a single
+                  green phase.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Travel Time Index"
+              content={
+                <Typography paragraph>
+                  Travel Time Index (TTI) is the ratio of the travel time during peak periods to the travel time during
+                  free-flow conditions. A TTI of 1.3 means that a trip takes 30% longer during peak periods than during
+                  free-flow conditions.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Planning Time Index"
+              content={
+                <Typography paragraph>
+                  Planning Time Index (PTI) represents the total travel time that should be planned for a trip to ensure
+                  on-time arrival 95% of the time. It accounts for both recurring and non-recurring congestion.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Daily Volume"
+              content={
+                <Typography paragraph>
+                  Daily Volume represents the total number of vehicles that pass through an intersection in a 24-hour
+                  period, typically averaged across multiple weekdays.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Pedestrians"
+              content={
+                <Typography paragraph>
+                  This metric tracks pedestrian activity at intersections, measured by pedestrian pushbutton activations
+                  or pedestrian detections, providing insights into non-vehicular traffic patterns.
+                </Typography>
+              }
+            />
           </Paper>
         </Grid>
 
-        <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom>
-            Our Team
-          </Typography>
-          <Grid container spacing={2}>
-            {teamMembers.map((member) => (
-              <Grid item xs={12} sm={6} md={4} key={member.id}>
-                <Card>
-                  <CardMedia
-                    component="img"
-                    height="150"
-                    image={member.image}
-                    alt={member.name}
-                    sx={{ objectFit: "contain", bgcolor: "grey.100" }}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" component="div">
-                      {member.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {member.title}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Paper sx={{ p: 3, mt: 2 }}>
-            <Typography variant="h5" gutterBottom>
-              Version History
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Paper sx={{ p: 0, height: "100%" }}>
+            <Typography variant="h6" sx={{ p: 2, fontWeight: "bold" }}>
+              Volume & Equipment
             </Typography>
-            <List>
-              {versionHistory.map((item, index) => (
-                <Box key={item.version}>
-                  <ListItem alignItems="flex-start">
-                    <ListItemText primary={`Version ${item.version} (${item.date})`} secondary={item.notes} />
-                  </ListItem>
-                  {index < versionHistory.length - 1 && <Divider />}
-                </Box>
-              ))}
-            </List>
+            <Divider />
+
+            <AccordionItem
+              title="Detector Uptime"
+              content={
+                <Typography paragraph>
+                  Detector Uptime measures the percentage of time that vehicle detection equipment is functioning
+                  properly. Higher values indicate more reliable detection systems.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Pedestrian Pushbutton Uptime"
+              content={
+                <Typography paragraph>
+                  Pedestrian Pushbutton Uptime tracks the reliability of pedestrian pushbuttons at intersections. It
+                  measures the percentage of time these devices are functioning correctly.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="CCTV Uptime"
+              content={
+                <Typography paragraph>
+                  CCTV Uptime indicates the percentage of time that closed-circuit television cameras at intersections
+                  are operational, allowing traffic operators to visually monitor conditions.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Communications Uptime"
+              content={
+                <Typography paragraph>
+                  Communications Uptime measures the reliability of the communications network connecting traffic
+                  signals to the central management system, reported as a percentage of time with successful
+                  connectivity.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="Events Reported, Resolved, Outstanding"
+              content={
+                <Typography paragraph>
+                  This metric tracks the total number of maintenance and operational events that have been reported, how
+                  many have been resolved, and how many remain outstanding, providing insight into the efficiency of the
+                  maintenance program.
+                </Typography>
+              }
+            />
+
+            <AccordionItem
+              title="RTOP Activity Logs"
+              content={
+                <Typography paragraph>
+                  RTOP (Regional Traffic Operations Program) Activity Logs document actions taken by traffic engineers
+                  and technicians to optimize signal timing and respond to incidents, providing an audit trail of
+                  operational changes.
+                </Typography>
+              }
+            />
           </Paper>
         </Grid>
       </Grid>
-
-      <Box sx={{ mt: 4, textAlign: "center" }}>
-        <Typography variant="body2" color="text.secondary">
-          © 2025 SigOps Metrics. All rights reserved.
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Version 3.2.1
-        </Typography>
-      </Box>
     </Box>
   )
 }
 
+// Custom accordion item component with + and - icons
+function AccordionItem({ title, content }) {
+  return (
+    <Accordion
+      disableGutters
+      elevation={0}
+      sx={{
+        borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+        "&:before": { display: "none" },
+        "&.Mui-expanded": { margin: 0 },
+      }}
+    >
+      <AccordionSummary
+        expandIcon={<AddIcon />}
+        aria-controls={`${title}-content`}
+        id={`${title}-header`}
+        sx={{
+          flexDirection: "row-reverse",
+          minHeight: "48px",
+          "& .MuiAccordionSummary-content": { margin: "12px 0" },
+          "&.Mui-expanded": { minHeight: "48px" },
+        }}
+      >
+        <Typography sx={{ display: "flex", alignItems: "center", fontWeight: "medium" }}>{title}</Typography>
+      </AccordionSummary>
+      <AccordionDetails sx={{ px: 2, pt: 0, pb: 2 }}>{content}</AccordionDetails>
+    </Accordion>
+  )
+};

@@ -13,6 +13,7 @@ import FilterListIcon from "@mui/icons-material/FilterList"
 import PrintIcon from "@mui/icons-material/Print"
 import HelpIcon from "@mui/icons-material/Help"
 import SettingsIcon from "@mui/icons-material/Settings"
+import ChatIcon from '@mui/icons-material/Chat';
 import AppsIcon from "@mui/icons-material/Apps"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
@@ -58,14 +59,14 @@ export default function Header({ sideNavOpen, onSideNavToggle, onFilterToggle }:
           <FilterListIcon />
         </IconButton>
         <IconButton color="inherit">
-          <PrintIcon />
+          <ChatIcon />
         </IconButton>
         <IconButton color="inherit" onClick={handleMenuOpen}>
           <HelpIcon />
         </IconButton>
-        <IconButton color="inherit">
+        {/* <IconButton color="inherit">
           <SettingsIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton color="inherit">
           <AppsIcon />
         </IconButton>
@@ -77,5 +78,4 @@ export default function Header({ sideNavOpen, onSideNavToggle, onFilterToggle }:
       </Toolbar>
     </AppBar>
   )
-}
-
+};
