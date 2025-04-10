@@ -41,6 +41,10 @@ export default function Dashboard() {
     { label: "AM Peak Volume", value: "886", unit: "vph" },
     { label: "PM Peak Volume", value: "1,156", unit: "vph" },
     { label: "Pedestrian Activations", value: "225", unit: "" },
+    { label: "Vehicle Detector Uptime", value: "99.9%", unit: "" },
+    { label: "Pedestrian Detector Uptime", value: "99.9%", unit: "" },
+    { label: "CCTV Uptime", value: "99.9%", unit: "" },
+    { label: "Communications Uptime", value: "99.9%", unit: "" },
   ]
 
   // Create sample map data for Plotly
@@ -120,38 +124,6 @@ export default function Dashboard() {
   return (
     <Box sx={{ p: 2 }}>
       <Grid container spacing={2}>
-        {/* Filters Row */}
-        <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
-            <FormControl size="small" sx={{ minWidth: 150 }}>
-              <InputLabel id="date-range-label">Date Range</InputLabel>
-              <Select labelId="date-range-label" label="Date Range" defaultValue="priorYear">
-                <MenuItem value="priorYear">Prior Year</MenuItem>
-                <MenuItem value="currentYear">Current Year</MenuItem>
-                <MenuItem value="priorMonth">Prior Month</MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl size="small" sx={{ minWidth: 150 }}>
-              <InputLabel id="date-aggregation-label">Date Aggregation</InputLabel>
-              <Select labelId="date-aggregation-label" label="Date Aggregation" defaultValue="monthly">
-                <MenuItem value="monthly">Monthly</MenuItem>
-                <MenuItem value="weekly">Weekly</MenuItem>
-                <MenuItem value="daily">Daily</MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl size="small" sx={{ minWidth: 150 }}>
-              <InputLabel id="region-label">Region</InputLabel>
-              <Select labelId="region-label" label="Region" defaultValue="centralMetro">
-                <MenuItem value="centralMetro">Central Metro</MenuItem>
-                <MenuItem value="northRegion">North Region</MenuItem>
-                <MenuItem value="southRegion">South Region</MenuItem>
-              </Select>
-            </FormControl>
-          </Paper>
-        </Grid>
-
         {/* Main Content - Responsive Layout */}
         <Grid item xs={12} lg={4}>
           <Grid container spacing={2}>
@@ -203,10 +175,22 @@ export default function Dashboard() {
               </Paper>
             </Grid>
           </Grid>
+          <Paper sx={{ p: 2, height: "100%" }}>
+            <TableContainer>
+              <Table size="small">
+                <TableBody>
+                    <TableRow>
+                      <TableCell>TEAMS Tasks</TableCell>
+                      <TableCell align="right">Total Outstanding: 10</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </Grid>
 
         {/* Map Area */}
-        <Grid item xs={12} lg={8}>
+        <Grid xs={12} lg={8}>
           <Paper sx={{ p: 2, height: "100%", minHeight: "500px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
               <FormControl size="small" sx={{ minWidth: 200 }}>
@@ -277,4 +261,3 @@ export default function Dashboard() {
     </Box>
   )
 }
-
